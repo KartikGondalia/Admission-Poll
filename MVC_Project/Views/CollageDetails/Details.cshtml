@@ -1,0 +1,57 @@
+﻿@model MVC_Project.Models.CollageDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CollageDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CollageName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CollageName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Addrress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Addrress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstablishIn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstablishIn)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

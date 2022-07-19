@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="admissionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BranchDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BranchName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Seats" Type="Int32" />
+    <Property Name="CollageId" Type="Int32" />
+    <Property Name="Fees" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CollageDetail" Relationship="Self.FK_Table_ToCollageDetails" FromRole="BranchDetails" ToRole="CollageDetails" />
+  </EntityType>
+  <EntityType Name="CollageDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CollageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Addrress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EstablishIn" Type="Int32" />
+    <NavigationProperty Name="BranchDetails" Relationship="Self.FK_Table_ToCollageDetails" FromRole="CollageDetails" ToRole="BranchDetails" />
+  </EntityType>
+  <EntityType Name="StudentRegistraion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Addrress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Total" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_Table_ToCollageDetails">
+    <End Role="CollageDetails" Type="Self.CollageDetail" Multiplicity="0..1" />
+    <End Role="BranchDetails" Type="Self.BranchDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CollageDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BranchDetails">
+        <PropertyRef Name="CollageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="admissionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BranchDetails" EntityType="Self.BranchDetail" />
+    <EntitySet Name="CollageDetails" EntityType="Self.CollageDetail" />
+    <EntitySet Name="StudentRegistraions" EntityType="Self.StudentRegistraion" />
+    <AssociationSet Name="FK_Table_ToCollageDetails" Association="Self.FK_Table_ToCollageDetails">
+      <End Role="CollageDetails" EntitySet="CollageDetails" />
+      <End Role="BranchDetails" EntitySet="BranchDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

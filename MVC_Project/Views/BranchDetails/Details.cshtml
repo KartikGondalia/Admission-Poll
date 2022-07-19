@@ -1,0 +1,52 @@
+﻿@model MVC_Project.Models.BranchDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BranchDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BranchName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BranchName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seats)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seats)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fees)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fees)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CollageDetail.CollageName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CollageDetail.CollageName)
+        </dd>
+    </dl>
+</div>
+<p>
+@if ((string)TempData.Peek("role") == "admin")
+{
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) 
+}
+    @Html.ActionLink("Back to List", "Index")
+</p>

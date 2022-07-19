@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="admissionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BranchDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BranchName" Type="varchar" MaxLength="50" />
+    <Property Name="Seats" Type="int" />
+    <Property Name="CollageId" Type="int" />
+    <Property Name="Fees" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CollageDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CollageName" Type="varchar" MaxLength="50" />
+    <Property Name="Addrress" Type="varchar" MaxLength="50" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="City" Type="varchar" MaxLength="50" />
+    <Property Name="EstablishIn" Type="int" />
+  </EntityType>
+  <EntityType Name="StudentRegistraion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="Addrress" Type="varchar" MaxLength="50" />
+    <Property Name="Total" Type="int" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="Contact" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Table_ToCollageDetails">
+    <End Role="CollageDetails" Type="Self.CollageDetails" Multiplicity="0..1" />
+    <End Role="BranchDetails" Type="Self.BranchDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CollageDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BranchDetails">
+        <PropertyRef Name="CollageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="admissionModelStoreContainer">
+    <EntitySet Name="BranchDetails" EntityType="Self.BranchDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CollageDetails" EntityType="Self.CollageDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StudentRegistraion" EntityType="Self.StudentRegistraion" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Table_ToCollageDetails" Association="Self.FK_Table_ToCollageDetails">
+      <End Role="CollageDetails" EntitySet="CollageDetails" />
+      <End Role="BranchDetails" EntitySet="BranchDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

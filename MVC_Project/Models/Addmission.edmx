@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="admissionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BranchDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchName" Type="varchar" MaxLength="50" />
+          <Property Name="Seats" Type="int" />
+          <Property Name="CollageId" Type="int" />
+          <Property Name="Fees" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CollageDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CollageName" Type="varchar" MaxLength="50" />
+          <Property Name="Addrress" Type="varchar" MaxLength="50" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="EstablishIn" Type="int" />
+        </EntityType>
+        <EntityType Name="StudentRegistraion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Addrress" Type="varchar" MaxLength="50" />
+          <Property Name="Total" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Contact" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Table_ToCollageDetails">
+          <End Role="CollageDetails" Type="Self.CollageDetails" Multiplicity="0..1" />
+          <End Role="BranchDetails" Type="Self.BranchDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CollageDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BranchDetails">
+              <PropertyRef Name="CollageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="admissionModelStoreContainer">
+          <EntitySet Name="BranchDetails" EntityType="Self.BranchDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CollageDetails" EntityType="Self.CollageDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentRegistraion" EntityType="Self.StudentRegistraion" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Table_ToCollageDetails" Association="Self.FK_Table_ToCollageDetails">
+            <End Role="CollageDetails" EntitySet="CollageDetails" />
+            <End Role="BranchDetails" EntitySet="BranchDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="admissionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BranchDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Seats" Type="Int32" />
+          <Property Name="CollageId" Type="Int32" />
+          <Property Name="Fees" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CollageDetail" Relationship="Self.FK_Table_ToCollageDetails" FromRole="BranchDetails" ToRole="CollageDetails" />
+        </EntityType>
+        <EntityType Name="CollageDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CollageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Addrress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EstablishIn" Type="Int32" />
+          <NavigationProperty Name="BranchDetails" Relationship="Self.FK_Table_ToCollageDetails" FromRole="CollageDetails" ToRole="BranchDetails" />
+        </EntityType>
+        <EntityType Name="StudentRegistraion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Addrress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Total" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Table_ToCollageDetails">
+          <End Role="CollageDetails" Type="Self.CollageDetail" Multiplicity="0..1" />
+          <End Role="BranchDetails" Type="Self.BranchDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CollageDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BranchDetails">
+              <PropertyRef Name="CollageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="admissionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BranchDetails" EntityType="Self.BranchDetail" />
+          <EntitySet Name="CollageDetails" EntityType="Self.CollageDetail" />
+          <EntitySet Name="StudentRegistraions" EntityType="Self.StudentRegistraion" />
+          <AssociationSet Name="FK_Table_ToCollageDetails" Association="Self.FK_Table_ToCollageDetails">
+            <End Role="CollageDetails" EntitySet="CollageDetails" />
+            <End Role="BranchDetails" EntitySet="BranchDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="admissionModelStoreContainer" CdmEntityContainer="admissionEntities">
+          <EntitySetMapping Name="BranchDetails">
+            <EntityTypeMapping TypeName="admissionModel.BranchDetail">
+              <MappingFragment StoreEntitySet="BranchDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="Seats" ColumnName="Seats" />
+                <ScalarProperty Name="CollageId" ColumnName="CollageId" />
+                <ScalarProperty Name="Fees" ColumnName="Fees" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollageDetails">
+            <EntityTypeMapping TypeName="admissionModel.CollageDetail">
+              <MappingFragment StoreEntitySet="CollageDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CollageName" ColumnName="CollageName" />
+                <ScalarProperty Name="Addrress" ColumnName="Addrress" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="EstablishIn" ColumnName="EstablishIn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentRegistraions">
+            <EntityTypeMapping TypeName="admissionModel.StudentRegistraion">
+              <MappingFragment StoreEntitySet="StudentRegistraion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Addrress" ColumnName="Addrress" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
